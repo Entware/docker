@@ -26,3 +26,8 @@ If you need second (3rd or more) terminal, type:
 ```
 docker exec --interactive --tty builder bash
 ```
+
+Extract compiled packages:
+```
+docker cp builder:/home/me/Entware/bin .
+```
