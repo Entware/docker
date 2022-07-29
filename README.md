@@ -31,3 +31,5 @@ Extract compiled packages:
 ```
 docker cp builder:/home/me/Entware/bin .
 ```
+
+The `Start-Builder.ps1` and `propagate_env.sh` scripts are very optional. It used by one of maintainer dive into chosen arch-specific container from Windows (first one) and deploy some basic environment inside (second one). It creates all necessary Docker volumes at first start and checks out Entware sources and prompt user for further compilation/development.
