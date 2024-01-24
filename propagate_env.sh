@@ -19,6 +19,15 @@ if [ ! "$(ls -A ${HOME}/E)"  ]; then
     git clone https://github.com/Entware/Entware.git "$HOME/E"
     ln -sf "$SRC/dl" "$HOME/E/dl"
     cd "$HOME/E"
+    git fetch
+    case $ENTWARE_ARCH in
+	armv5-3.2)
+	    git switch armv5-3.2
+	;;
+	armv7-2.6|x86-2.6)
+	    git switch k2.6
+	;;
+    esac
     make package/symlinks
     if [ ! -z "$ENTWARE_ARCH" ]; then
 	cp -vf configs/${ENTWARE_ARCH}.config .config
