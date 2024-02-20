@@ -1,47 +1,54 @@
-# Taken from https://github.com/openwrt/docker/blob/master/Dockerfile.base
-FROM debian
+# https://github.com/openwrt/buildbot/blob/master/docker/buildworker/Dockerfile
 
-RUN apt-get update -qq && \
+FROM	debian:11
+MAINTAINER	Entware team
+
+ARG	DEBIAN_FRONTEND=noninteractive
+
+RUN \
+    apt-get update && \
     apt-get install -y \
-        build-essential \
-        ccache \
-        clang \
-        curl \
-        file \
-        g++-multilib \
-        gawk \
-        gcc-multilib \
-        gettext \
-        git \
-        libssl-dev \
-        libncurses5-dev \
-        locales \
-		mc \
-        procps \
-        pv \
-        pwgen \
-        python \
-        python3 \
-        python3-pip \
-        rsync \
-        signify-openbsd \
-        subversion \
-        sudo \
-        unzip \
-        wget \
-        zlib1g-dev \
-        && apt-get -y autoremove \
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/*
+	build-essential \
+	ccache \
+	curl \
+	gawk \
+	g++-multilib \
+	gcc-multilib \
+	genisoimage \
+	git-core \
+	gosu \
+	libdw-dev \
+	libelf-dev \
+	libncurses5-dev \
+	locales \
+	mc \
+	pv \
+	pwgen \
+	python \
+	python3 \
+	python3-pip \
+	qemu-utils \
+	rsync \
+	signify-openbsd \
+	subversion \
+	sudo \
+	swig \
+	unzip \
+	wget \
+	zstd && \
+    apt-get clean && \
+    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+
+RUN pip3 install -U pip
+RUN pip3 install \
+	pyelftools \
+	pyOpenSSL \
+	service_identity
+
+ENV LANG=en_US.utf8
 
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -c "OpenWrt Builder" -m -d /home/me -G sudo -s /bin/bash me
-
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-RUN sed -i 's/# \(en_US\.UTF-8 .*\)/\1/' /etc/locale.gen
-RUN locale-gen
 
 USER me
 WORKDIR /home/me
