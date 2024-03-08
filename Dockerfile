@@ -20,6 +20,7 @@ RUN \
 	libdw-dev \
 	libelf-dev \
 	libncurses5-dev \
+ 	libssl-dev \
 	locales \
 	mc \
 	pv \
