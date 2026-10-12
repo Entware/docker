@@ -1,6 +1,6 @@
 # https://github.com/openwrt/buildbot/blob/master/docker/buildworker/Dockerfile
 
-FROM	debian:11
+FROM	debian:13
 MAINTAINER	Entware team
 
 ARG	DEBIAN_FRONTEND=noninteractive
@@ -17,16 +17,16 @@ RUN \
 	gcc-multilib \
 	genisoimage \
 	git-core \
+	gnupg \
 	gosu \
 	libdw-dev \
 	libelf-dev \
-	libncurses5-dev \
+	libncurses-dev \
 	libssl-dev \
 	locales \
 	mc \
 	pv \
 	pwgen \
-	python \
 	python3 \
 	python3-venv \
 	python3-pip \
@@ -35,6 +35,7 @@ RUN \
 	qemu-utils \
 	rsync \
 	signify-openbsd \
+	shfmt \
 	subversion \
 	sudo \
 	swig \
@@ -44,11 +45,14 @@ RUN \
     apt-get clean && \
     localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 RUN pip3 install -U pip
 RUN pip3 install \
 	pyelftools \
 	pyOpenSSL \
-	service_identity
+	service_identity \
+	legacy-cgi
 
 ENV LANG=en_US.utf8
 
