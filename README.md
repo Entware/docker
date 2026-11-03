@@ -1,6 +1,6 @@
 # Building packages from Docker
 
-A highly reproducible way to build Entware packages. A plesant way for Docker-addicted persons:)
+A highly reproducible way to build Entware packages. A pleasant way for Docker-addicted persons:)
 
 ## Usage
 
